@@ -5,23 +5,96 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <script src="https://kit.fontawesome.com/cea0819182.js" crossorigin="anonymous"></script>
     <style>
+        div{
+            width:800px;
+            background-color: black;
+        }
+        #head {
+            display:flex;
+            height:90px;
+            align-items: center;
+        }
+        #profileImg{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 20px;
+        }
+        #postImg{
+            width:800px;
+            height: 800px;
+        }
+        #icons {
+            display:flex;
+            height: 100px;
+            align-items: center;
+        }
+        p{
+            color:white;
+            height:50px;
+            font-size:30px;
+            margin-left:20px;
+        }
         
+        .icon{
+            filter: invert(100%);
+            width: 50px;
+            margin-left:30px;
+        }
+        #dots{
+            position:relative;
+            left: 460px;
+        }
+        #bookmark {
+            position:relative;
+            left: 450px;
+        }
+        #like_count, #content, #comments, #date{
+            display:flex;
+            align-items: center;
+            height:55px;
+        }
+        #comments > p, #date > p {
+            color: gray
+        }
+        #date > p{
+            font-size: 20px;
+        }
     </style>
+      
 </head>
 <body>
-    <div>
-        <img style="border-radius: 50%;" src="https://images.chosun.com/resizer/sD2V9t5EOBvs-FOtUUDOJekXUx4=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/U4IIQNIIYFLA3JC7EYMNJMOCIA.JPG">
+    <div id="frame">
+        <div id="head">
+            <img id="profileImg" src="https://img.tvreportcdn.de/cms-content/uploads/2022/08/22/00e059b9-41c6-4049-8598-aaca8e1b1182.jpg"
+                                alt="프로필 사진">
+            <p>xeesoxee</p>
+            <img class="icon" id="dots" src="icon_dots.svg" alt="더보기">
+        </div>
+        <img id="postImg" src="https://image.newsis.com/2023/01/19/NISI20230119_0001179407_web.jpg?rnd=20230119105611"
+                    alt="게시물 사진">
+        <div id="icons">
+            <img class="icon" src="icon_like.svg" alt="좋아요">
+            <img class="icon" src="icon_comment.svg" alt="댓글">
+            <img class="icon" src="icon_dm.svg" alt="DM">
+            <img class="icon" id="bookmark" src="icon_bookmark.svg" alt="DM">
+        </div>
+        <div id="like_count">
+            <p>좋아요 181.1만개</p>
+        </div>
+        <div id="content">
+            <p>xeesoxee</p><p>멋지다 한소희</p>
+        </div>
+        <div id="comments">
+            <p>댓글 9205개 모두 보기</p>
+        </div>
+        <div id="date">
+            <p>3월 19, 2023</p>
+        </div>
+        
     </div>
-    <div>
-        <img src="https://images.chosun.com/resizer/sD2V9t5EOBvs-FOtUUDOJekXUx4=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosun/U4IIQNIIYFLA3JC7EYMNJMOCIA.JPG">
-    </div>
-    <div>
 
-    </div>
-    <div>
-
-    </div>
-    
 </body>
 </html>

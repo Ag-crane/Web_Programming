@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://kit.fontawesome.com/cea0819182.js" crossorigin="anonymous"></script>
+    <title>instagram</title>
     <style>
         div{
             width:800px;
@@ -26,7 +25,7 @@
             width:800px;
             height: 800px;
         }
-        #icons {
+        #iconBox {
             display:flex;
             height: 100px;
             align-items: center;
@@ -51,7 +50,7 @@
             position:relative;
             left: 450px;
         }
-        #like_count, #content, #comments, #date{
+        .line{
             display:flex;
             align-items: center;
             height:55px;
@@ -75,22 +74,22 @@
         </div>
         <img id="postImg" src="https://image.newsis.com/2023/01/19/NISI20230119_0001179407_web.jpg?rnd=20230119105611"
                     alt="게시물 사진">
-        <div id="icons">
+        <div id="iconBox">
             <img class="icon" src="icon_like.svg" alt="좋아요">
             <img class="icon" src="icon_comment.svg" alt="댓글">
             <img class="icon" src="icon_dm.svg" alt="DM">
             <img class="icon" id="bookmark" src="icon_bookmark.svg" alt="DM">
         </div>
-        <div id="like_count">
+        <div class="line" id="like_count">
             <p>좋아요 181.1만개</p>
         </div>
-        <div id="content">
+        <div class="line" id="content">
             <p>xeesoxee</p><p>멋지다 한소희</p>
         </div>
-        <div id="comments">
+        <div class="line" id="comments">
             <p>댓글 9205개 모두 보기</p>
         </div>
-        <div id="date">
+        <div class="line" id="date">
             <p>3월 19, 2023</p>
         </div>
         

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미세먼지 화면 만들기</title>
+    <script>
+        function load(){
+            const con = confirm("데이터를 불러오시겠습니까?");
+            if ( con === false ) {
+                console.log("데이터를 안불러옵니다");
+                return;
+            }
+            console.log("데이터를 불러옵니다");
+            // const data = fetch("http://openapi.seoul.go.kr:8088/7961696649656e6136375774696566/json/RealtimeCityAir/1/25/")
+            // console.log(data)  // 이래도 콘솔창에 데이터 안보임. fetch함수는 비동기 처리 -> 결과를 기다리지 않고 바로 끝남. pending : 아직 가지고오는 중이다
+            fetch("http://openapi.seoul.go.kr:8088/7961696649656e6136375774696566/json/RealtimeCityAir/1/25/").then(
+                function(res){ 
+                    res.json().then( function(res2) {
+                        alert(res2.RealtimeCityAir.RESULT.MESSAGE);
+                        alert(res2.RealtimeCityAir.row[0].MSRSTE_NM + "에 오신 것을 환영합니다");
+                        for( var i = 0 ; i < 25 ; i++ ){
+                            document.getElementById("data").innerHTML = document.getElementById("data").innerHTML + 
+                            `
+                            <tr>
+                                <td>${res2.RealtimeCityAir.row[i].MSRSTE_NM}</td>
+                                <td>${res2.RealtimeCityAir.row[i].PM10}</td>
+                                <td>${res2.RealtimeCityAir.row[i].PM25}</td>
+                                <td>${res2.RealtimeCityAir.row[i].O3}</td>
+                                <td>${res2.RealtimeCityAir.row[i].SO2}</td>
+                             </tr>
+                             `
+                            };
+                        }
+                    );
+                    console.log(res);
+                }
+            );
+        }
+    </script>
+</head>
+<body>
+    <button onclick="load()">데이터 불러오기</button>
+    <table>
+        <thead>
+            <th>지역명</th>
+            <th>PM10</th>
+            <th>PM25</th>
+            <th>O3</th>
+            <th>NO2</th>
+        </thead>
+        <tbody id = "data">
+            <tr>
+                <td>중구</td>
+                <td>26</td>
+                <td>13</td>
+                <td>0.049</td>
+                <td>0.003</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

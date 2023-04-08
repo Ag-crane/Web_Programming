@@ -1,0 +1,81 @@
+{
+    "RealtimeCityAir": {
+        "list_total_count": 25,
+        "RESULT": {
+            "CODE": "INFO-000",
+            "MESSAGE": "정상 처리되었습니다"
+        },
+        "row": [
+            {
+                "MSRDT": "202304041800",
+                "MSRRGN_NM": "도심권",
+                "MSRSTE_NM": "중구",
+                "PM10": 26.0,
+                "PM25": 13.0,
+                "O3": 0.049,
+                "NO2": 0.027,
+                "CO": 0.4,
+                "SO2": 0.003,
+                "IDEX_NM": "보통",
+                "IDEX_MVL": 66.0,
+                "ARPLT_MAIN": "O3"
+            },
+            {
+                "MSRDT": "202304041800",
+                "MSRRGN_NM": "도심권",
+                "MSRSTE_NM": "종로구",
+                "PM10": 26.0,
+                "PM25": 12.0,
+                "O3": 0.049,
+                "NO2": 0.026,
+                "CO": 0.4,
+                "SO2": 0.003,
+                "IDEX_NM": "보통",
+                "IDEX_MVL": 66.0,
+                "ARPLT_MAIN": "O3"
+            },
+            {
+                "MSRDT": "202304041800",
+                "MSRRGN_NM": "도심권",
+                "MSRSTE_NM": "용산구",
+                "PM10": 34.0,
+                "PM25": 17.0,
+                "O3": 0.048,
+                "NO2": 0.026,
+                "CO": 0.4,
+                "SO2": 0.003,
+                "IDEX_NM": "보통",
+                "IDEX_MVL": 65.0,
+                "ARPLT_MAIN": "O3"
+            },
+            {
+                "MSRDT": "202304041800",
+                "MSRRGN_NM": "서북권",
+                "MSRSTE_NM": "은평구",
+                "PM10": 22.0,
+                "PM25": 11.0,
+                "O3": 0.056,
+                "NO2": 0.015,
+                "CO": 0.6,
+                "SO2": 0.003,
+                "IDEX_NM": "보통",
+                "IDEX_MVL": 72.0,
+                "ARPLT_MAIN": "O3"
+            },
+            {
+                "MSRDT": "202304041800",
+                "MSRRGN_NM": "서북권",
+                "MSRSTE_NM": "서대문구",
+                "PM10": 24.0,
+                "PM25": 10.0,
+                "O3": 0.05,
+                "NO2": 0.014,
+                "CO": 0.3,
+                "SO2": 0.003,
+                "IDEX_NM": "보통",
+                "IDEX_MVL": 67.0,
+                "ARPLT_MAIN": "O3"
+            }
+        ]
+    }
+}

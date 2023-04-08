@@ -8,54 +8,198 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Gamja+Flower&display=swap" rel="stylesheet">
-    <style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+	<style>
         body{
-            width:1200px;
-        }
-        header{
-            height: 150px;
+			margin:0px;
+            background-color: #ccc;
             font-family: 'Gamja Flower', cursive;
+        }
+        
+        body > div{
+            display: flex;
+            justify-content: center;
+        }
+        #frame{
+            width:1200px;
+			background-color: aquamarine;
+			/* margin-top:50px; */
+        }
+		#frame > *{
+			width:1200px;
+		}
+        header{
+            height: 100px;
+			position: fixed;
             font-size:25pt;
             background-color: #FFEF86;
             display:flex;
             justify-content: center;
             align-items: center;
         }
-        
+        hr{
+			margin-top: 110px;
+		}
         main {
+			margin-left: 30px;
+			margin-right: 30px;
+			margin-bottom: 30px;
+			/* border-style: ; */
             background-color: beige;
-            display:flex;
+        }
+        #section1{
+            display: flex;
+        }
+        #section2{
+            display: flex;
+            justify-content: center;
+        }
+        #ingredient{
+            width:400px;
+        }
+        #ingredient > ul{
+        
+            border-style:dashed;
+            border-width:2px;
+            background-color:antiquewhite;
+        }
+        #section3{
+
+        }
+        #section3 > ol{
+            border-style:dashed;
+            border-width:2px;
+            background-color:azure;
+            display: table;
+            table-layout: fixed;
+        }
+        #section3 li{
+            display: table-cell;
+           
         }
         #img{
-            width:400px;
-            height:300px;
+            width:500px;
+            height:400px;
             border-radius:50px;
         }
         pre{
+            width:500px;
+            height:400px;
             font-size:10pt;
-            width:400px;
-            
         }
+        footer{
+            background-color: gray;
+            color:#eee;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        aside{
+            width:320px;
+            float:right;
+            margin-top: 200px;
+        }
+        #mainArea{
+            display: flex;
+        }
+		
     </style>
 </head>
 <body>
-    <header>
-        <h1>소고기미역국 레시피</h1>
-    </header>
-    <hr>
-    <main>
-        <img id="img" src="https://blog.kakaocdn.net/dn/bTEHkf/btq5Sw7IagS/Wa9VDcHxwnRKITM3uo8R11/img.jpg" width="300" height="200"
-        art="소고기미역국 이미지">
-        <pre>
-            선정한 이유 :
-            요리를 안하는 사람이라도 배워놓으면 
-            가까운 사람에게 좋은 기억을 만들어줄 수 있다
-        </pre>
-    </main>
-    <floating>
-        
-    </floating>
-    <footer>
-    </footer>
+	
+    <div>
+
+        <div id="frame">
+            <header>
+                <h1>소고기미역국 레시피</h1>
+            </header>
+            <hr>
+            <div id="mainArea">
+                <main>
+                    <section id="section1">
+                        <img id="img" src="https://blog.kakaocdn.net/dn/bTEHkf/btq5Sw7IagS/Wa9VDcHxwnRKITM3uo8R11/img.jpg" width="300" height="200"
+                                    art="소고기미역국 이미지">
+                        <pre>
+                            선정한 이유 :
+                            요리를 안하는 사람이라도 
+                            배워놓으면 
+                            가까운 사람에게 
+                            좋은 기억을 만들어줄 수 있다
+                        </pre>
+                    </section>
+                    <section id="section2">
+                        <div id="ingredient">
+                            <h3>재료</h3>
+                            <ul>
+                                <li>미역 10g</li>
+                                <li>소고기 양지 150g</li>
+                                <li>참기름 1큰술</li>
+                                <li>국간장 2큰술</li>
+                                <li>마늘 0.5큰술</li>
+                                <li>꽃소금 조금</li>
+                            </ul>
+                        </div>
+    
+                    </section>
+                    <section id="section3" style="background-color: green;">
+                        <ol type="1">
+                            
+                            <li style="font-size: 1.2em;"><strong>[사전 준비]</strong></li>
+                            <li>- 자른 미역 10g(2인분)을 물에 넣어 불린다.</li>
+                            <li>- 키친타월로 소고기 피를 살짝 뺀다.</li>
+                            <li>- 참기름을 두르고 소고기를 볶는다.</li>
+                            <li>- 불린 미역을 물기를 뺀 후 3분 정도 볶는다.</li>
+                    
+                            <li style="font-size: 1.2em;"><strong>[국 끓이기]</strong></li>
+                            <li>- 볶은 고기 &amp; 미역을 냄비로 옮기고 물을 붓는다</li>
+                            <li>- 마늘, 국간장을 넣고 &apos;중불&apos;에 10분, &aposli약불&apos;에 20분 끓인다</li>
+                            <li>- 나머지 간은 꽃소금으로 맞춰준다</li>
+                        
+                      
+                          </ol>
+                    </section>
+            
+                </main>
+                <aside>
+                    <a href="https://www.10000recipe.com/recipe/6840689">참고레시피1</a>
+                    <a href="https://www.10000recipe.com/recipe/6212927">참고레시피2</a>
+                    <a href="https://www.cj.co.kr/kr/k-food-life/cj-the-kitchen/recipe/0000001734">참고레시피3</a>
+                </aside>
+            </div>
+           
+            <footer>
+                학번:2018111750
+                이름:이은학
+				<br>
+				<button onclick="increaseWidth()">너비키우기</button>
+				<button onclick="toggleBackgroundColor()">배경색바꾸기</button>
+				<button onclick="increaseHeaderHeight()">헤더키우기</button>
+                <br>
+            </footer>
+        </div>
+    </div>
+    
+	<script>
+		function increaseWidth() {
+			var frmae = document.getElementById('frame');
+			var frameWidth = frame.offsetWidth;
+			var newWidth = frameWidth + 50;
+			frame.style.width = newWidth + "px";
+		}
+		function toggleBackgroundColor() {
+			var body = document.body;
+			var currentColor = body.style.backgroundColor;
+			var newColor = (currentColor === "white" || currentColor === "") ? "black" : "white";
+			body.style.backgroundColor = newColor;
+		}
+		function increaseHeaderHeight() {
+			if (confirm("헤더를 키우시겠습니까?")) {
+				var header = document.querySelector("header");
+				var currentHeight = parseInt(window.getComputedStyle(header).height);
+				var newHeight = currentHeight + 10;
+				header.style.height = newHeight + "px";
+			}
+		}
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
 </body>
 </html>

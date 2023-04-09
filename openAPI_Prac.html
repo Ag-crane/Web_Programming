@@ -13,13 +13,13 @@
                 return;
             }
             console.log("데이터를 불러옵니다");
+            
             // const data = fetch("http://openapi.seoul.go.kr:8088/7961696649656e6136375774696566/json/RealtimeCityAir/1/25/")
             // console.log(data)  // 이래도 콘솔창에 데이터 안보임. fetch함수는 비동기 처리 -> 결과를 기다리지 않고 바로 끝남. pending : 아직 가지고오는 중이다
             fetch("http://openapi.seoul.go.kr:8088/7961696649656e6136375774696566/json/RealtimeCityAir/1/25/").then(
                 function(res){ 
                     res.json().then( function(res2) {
                         alert(res2.RealtimeCityAir.RESULT.MESSAGE);
-                        alert(res2.RealtimeCityAir.row[0].MSRSTE_NM + "에 오신 것을 환영합니다");
                         for( var i = 0 ; i < 25 ; i++ ){
                             document.getElementById("data").innerHTML = document.getElementById("data").innerHTML + 
                             `
@@ -34,7 +34,6 @@
                             };
                         }
                     );
-                    console.log(res);
                 }
             );
         }
@@ -51,13 +50,6 @@
             <th>NO2</th>
         </thead>
         <tbody id = "data">
-            <tr>
-                <td>중구</td>
-                <td>26</td>
-                <td>13</td>
-                <td>0.049</td>
-                <td>0.003</td>
-            </tr>
         </tbody>
     </table>
 </body>

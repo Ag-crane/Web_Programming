@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>서울시 대기 오염 정보</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .region {
+            font-weight: bold;
+            text-align: center;
+        }
+        .border {
+            border-top: 3px solid black;
+        }
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>권역구</th>
+                <th>미세먼지</th>
+                <th>초미세먼지</th>
+                <th>오존</th>
+                <th>아황산가스</th>
+            </tr>
+        </thead>
+        <tbody id="data">
+        </tbody>
+    </table>
+    <script>
+        fetch("http://openapi.seoul.go.kr:8088/7961696649656e6136375774696566/json/RealtimeCityAir/1/25/").then(
+            function(res) { 
+                res.json().then( function(res2) {
+                    for( var i = 0 ; i < 25 ; i++ ){
+                        // 데이터가 0일 경우 '-'로 대체
+                        var pm10 = res2.RealtimeCityAir.row[i].PM10 == 0 ? '-' : res2.RealtimeCityAir.row[i].PM10;
+                        var pm25 = res2.RealtimeCityAir.row[i].PM25 == 0 ? '-' : res2.RealtimeCityAir.row[i].PM25;
+                        var o3 = res2.RealtimeCityAir.row[i].O3 == 0 ? '-' : res2.RealtimeCityAir.row[i].O3;
+                        var so2 = res2.RealtimeCityAir.row[i].SO2 == 0 ? '-' : res2.RealtimeCityAir.row[i].SO2;
+
+                        document.getElementById("data").innerHTML = document.getElementById("data").innerHTML + 
+                        `
+                        <tr>
+                            <td>${res2.RealtimeCityAir.row[i].MSRSTE_NM}</td>
+                            <td>${pm10}</td>
+                            <td>${pm25}</td>
+                            <td>${o3}</td>
+                            <td>${so2}</td>
+                        </tr>
+                        `
+                    };
+                    var data = res2.RealtimeCityAir.row;
+                    var regions = {};
+                    
+                    // 권역구별로 데이터를 분류합니다.
+                    for (var i = 0; i < data.length; i++) {
+                        var region = data[i].MSRRGN_NM;
+                        if (!(region in regions)) {
+                            regions[region] = [];
+                        }
+                        regions[region].push(data[i]);
+                    }
+                    // 권역구별로 표를 만듭니다.
+                    for (var region in regions) {
+                        var rows = regions[region];
+                        var rowHTML = '';
+                        for (var i = 0; i < rows.length; i++) {
+                            rowHTML += `
+                            <tr>
+                                <td>${rows[i].MSRSTE_NM}</td>
+                                <td>${rows[i].PM10}</td>
+                                <td>${rows[i].PM25}</td>
+                                <td>${rows[i].O3}</td>
+                                <td>${rows[i].SO2}</td>
+                            </tr>
+                            `;
+                        }
+                        // 권역구 이름과 함께 표를 추가합니다.
+                        document.getElementById("data").innerHTML += `
+                        <tr class="region">
+                            <td colspan="5">${region}</td>
+                        </tr>
+                        ${rowHTML}
+                        <tr class="border"><td colspan="5"></td></tr>
+                        `;
+                    }
+
+                });
+            }
+        );
+    </script>
+</body>
+</html>

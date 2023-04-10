@@ -29,11 +29,11 @@
     <table>
         <thead>
             <tr>
-                <th>권역구</th>
-                <th>미세먼지</th>
-                <th>초미세먼지</th>
-                <th>오존</th>
-                <th>아황산가스</th>
+                <th>지역명</th>
+                <th>PM10</th>
+                <th>PM25</th>
+                <th>O3</th>
+                <th>NO2</th>
             </tr>
         </thead>
         <tbody id="data">
@@ -45,10 +45,21 @@
                 res.json().then( function(res2) {
                     for( var i = 0 ; i < 25 ; i++ ){
                         // 데이터가 0일 경우 '-'로 대체
-                        var pm10 = res2.RealtimeCityAir.row[i].PM10 == 0 ? '-' : res2.RealtimeCityAir.row[i].PM10;
-                        var pm25 = res2.RealtimeCityAir.row[i].PM25 == 0 ? '-' : res2.RealtimeCityAir.row[i].PM25;
-                        var o3 = res2.RealtimeCityAir.row[i].O3 == 0 ? '-' : res2.RealtimeCityAir.row[i].O3;
-                        var so2 = res2.RealtimeCityAir.row[i].SO2 == 0 ? '-' : res2.RealtimeCityAir.row[i].SO2;
+                        var pm10 = res2.RealtimeCityAir.row[i].PM10;
+                        if (pm10 === 0) {
+                        pm10 = '-';
+                        }
+                        var pm25 = res2.RealtimeCityAir.row[i].PM25;
+                        if (pm25 === 0) {
+                        pm25 = '-';
+                        }
+                        var o3 = res2.RealtimeCityAir.row[i].O3;
+                        if (o3 === 0) {
+                        o3 = '-';
+                        }
+                        var so2 = res2.RealtimeCityAir.row[i].SO2;
+                        if (so2 === 0) {
+                        so2 = '-';
 
                         document.getElementById("data").innerHTML = document.getElementById("data").innerHTML + 
                         `
@@ -61,10 +72,10 @@
                         </tr>
                         `
                     };
+
                     var data = res2.RealtimeCityAir.row;
                     var regions = {};
-                    
-                    // 권역구별로 데이터를 분류합니다.
+                    // 권역구별로 분류
                     for (var i = 0; i < data.length; i++) {
                         var region = data[i].MSRRGN_NM;
                         if (!(region in regions)) {

@@ -19,3 +19,16 @@ th {
   text-align: center;
   border-top: 3px solid black;
 }
+button {
+  width: 50%;
+  height: 100px;
+}
+#button1{
+  background-color: rgb(255, 150, 150);
+}
+#button2{
+  background-color: rgb(150, 150, 255);
+}
+#buttonBox{
+  display:flex;
+}

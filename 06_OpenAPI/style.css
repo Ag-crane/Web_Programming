@@ -1,0 +1,34 @@
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+thead {
+  border-top: 3px solid black;
+}
+th,
+td {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #ddd;
+}
+th {
+  background-color: #f2f2f2;
+}
+.region {
+  font-weight: bold;
+  text-align: center;
+  border-top: 3px solid black;
+}
+button {
+  width: 50%;
+  height: 100px;
+}
+#button1{
+  background-color: rgb(255, 150, 150);
+}
+#button2{
+  background-color: rgb(150, 150, 255);
+}
+#buttonBox{
+  display:flex;
+}

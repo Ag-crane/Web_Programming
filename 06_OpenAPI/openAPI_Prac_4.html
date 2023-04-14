@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>서울시 대기 오염 정보</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="chart.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <script>fetchData()</script>
+    <div id="buttonBox">
+      <button id = "button1" onclick="loadTable()">표 그리기</button>
+      <button id = "button2" onclick="loadChart()">차트(그래프) 그리기</button>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>지역명</th>
+          <th>PM10</th>
+          <th>PM25</th>
+          <th>O3</th>
+          <th>NO2</th>
+          <th>IDEX_NM</th>
+          <th>IDEX_MVL</th>
+        </tr>
+      </thead>
+      <tbody id="data"></tbody>
+    </table>
+    <div>
+      <canvas id="myChart"></canvas>
+    </div>
+    <div>
+      <canvas id="myChart2"></canvas>
+    </div>
+  </body>
+
+</html>

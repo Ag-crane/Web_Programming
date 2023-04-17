@@ -40,7 +40,6 @@ async function loadTable() {
     }
   }
 
-
   // 권역구별로 분류
   var regions = {};
   for (var i = 0; i < data.length; i++) {
@@ -82,7 +81,7 @@ async function loadTable() {
         ${rowHTML}
         `;
   }
-  
+
   // IDEX_MVL을 기준으로 하위, 상위 5개 색 바꾸기
   // 데이터 배열 생성
   var dataArray = [];
@@ -132,22 +131,76 @@ function loadChart() {
   for (var i = 0; i < 25; i++) {
     labels.push(data[i].MSRSTE_NM);
     datas.push(data[i].PM10);
-    labels2.push(data[i].MSRSTE_NM);
     datas2.push(data[i].PM25);
   }
 
   // myChart 캔버스에 차트 그리기
-  const ctx = document.getElementById("myChart");
+  // const ctx = document.getElementById("myChart");
 
-  new Chart(ctx, {
-    type: "bar",
+  // new Chart(ctx, {
+  //   type: "bar",
+  //   data: {
+  //     labels: labels,
+  //     datasets: [
+  //       {
+  //         label: "PM10",
+  //         data: datas,
+  //         borderWidth: 1,
+  //       },
+  //     ],
+  //   },
+  //   options: {
+  //     scales: {
+  //       y: {
+  //         beginAtZero: true,
+  //       },
+  //     },
+  //   },
+  // });
+
+  // const ctx2 = document.getElementById("myChart2");
+
+  // new Chart(ctx2, {
+  //   type: "bar",
+  //   data: {
+  //     labels: labels,
+  //     datasets: [
+  //       {
+  //         label: "PM25",
+  //         data: datas2,
+  //         borderWidth: 1,
+  //       },
+  //     ],
+  //   },
+  //   options: {
+  //     scales: {
+  //       y: {
+  //         beginAtZero: true,
+  //       },
+  //     },
+  //   },
+  // });
+
+  const ctx3 = document.getElementById("myChart3");
+
+  new Chart(ctx3, {
+    type: "line",
     data: {
       labels: labels,
       datasets: [
         {
           label: "PM10",
           data: datas,
-          borderWidth: 1,
+          fill: false,
+          borderColor: "rgb(75, 192, 192)",
+          tension: 0.1,
+        },
+        {
+          label: "PM25",
+          data: datas2,
+          fill: false,
+          borderColor: "rgb(192, 75, 192)",
+          tension: 0.1,
         },
       ],
     },
@@ -160,17 +213,26 @@ function loadChart() {
     },
   });
 
-  const ctx2 = document.getElementById("myChart2");
+  const ctx4 = document.getElementById("myChart4");
 
-  new Chart(ctx2, {
-    type: "bar",
+  new Chart(ctx4, {
+    type: "scatter",
     data: {
-      labels: labels2,
+      labels: labels,
       datasets: [
         {
-          label: "PM25",
-          data: datas2,
-          borderWidth: 1,
+          type: "bar",
+          label: "Bar Dataset (PM10)",
+          data: datas,
+          borderColor: "rgb(255, 99, 132)",
+          backgroundColor: "rgba(255, 99, 132, 0.2)",
+        },
+        {
+          type: "line",
+          label: "Line Dataset (PM10)",
+          data: datas,
+          fill: false,
+          borderColor: "rgb(54, 162, 235)",
         },
       ],
     },
@@ -180,6 +242,43 @@ function loadChart() {
           beginAtZero: true,
         },
       },
+    },
+  });
+
+  const ctx5 = document.getElementById("myChart2");
+
+  new Chart(ctx5, {
+    type: "radar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'PM10',
+        data: datas,
+        fill: true,
+        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+        borderColor: 'rgb(255, 99, 132)',
+        pointBackgroundColor: 'rgb(255, 99, 132)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgb(255, 99, 132)'
+      }, {
+        label: 'PM25',
+        data: datas2,
+        fill: true,
+        backgroundColor: 'rgba(54, 162, 235, 0.2)',
+        borderColor: 'rgb(54, 162, 235)',
+        pointBackgroundColor: 'rgb(54, 162, 235)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgb(54, 162, 235)'
+      }]
+    },
+    options: {
+      elements: {
+        line: {
+          borderWidth: 3
+        }
+      }
     },
   });
 }

@@ -101,35 +101,41 @@
       function game(){
         if(window.clicked){
           window.clicked = false
-          window.reject('실패')
+          window.reject('실패')   // reject 호출, catch로 넘어감
         }else{
           window.clicked = true
 
-          const p = new Promise(function(resolve, reject){
+          const p = new Promise(function(resolve, reject){    // resolve나 reject가 호출될 때까지 끝나지 않음
             window.reject = reject;
             setTimeout(function(){
-              resolve('성공')
+              resolve('성공')   // 3초뒤 resolve 호출, then으로 넘어감
             }, 3000)
           })
 
-          p.then(function(res){     // 성공하면 실행
+          p.then(function(res){     // 성공하면 (resolve가 호출되면) 실행
             window.clicked = false
             alert(res)
-          }).catch(function(err){   // 실패하면 실행
+          }).catch(function(err){   // 실패하면 (reject가 호출되면) 실행
             window.clicked = false
             alert(err)
           })
         }
       }
+      
+      // 게임만들기 예시
+      function typing() {
+        console.log(document.getElementById("type").value);
+      }
+
     </script>
   </head>
   <body>
     <h1>비동기 처리 실습</h1>
-    <!-- <button onclick="callback()">콜백</button>
+    <button onclick="callback()">콜백</button>
     <button onclick="asyncawait()">async/await</button>
     <button onclick="fiveAPI()">5개의 API</button>
     <button onclick="fiveAsyncAPI()">5개의 async API</button>
-    <button onclick="fiveRaceAPI()">5개의 API 중 가장 빠른 것</button> -->
-
+    <button onclick="fiveRaceAPI()">5개의 API 중 가장 빠른 것</button>
     <button onclick="game()">Promise 게임</button>
+    <input id="type" type="text" onchange="typing()">
 </html>

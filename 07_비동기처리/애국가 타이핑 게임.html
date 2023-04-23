@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>애국가 타이핑 게임</title>
+    <style>
+      body {
+        text-align: center;
+        margin-top: 100px;
+        font-size: 24px;
+      }
+      h5{
+        color:red
+      }
+    </style>
+  </head>
+  <body>
+    <h1>애국가 타이핑 게임</h1>
+    <h5>제한시간 : 10초</h3>
+    <p id="quote"></p>
+    <input
+      type="text"
+      id="input"
+      onkeypress="Javascript:if(event.keyCode==13){checkInput()}"
+      autofocus
+    />
+    <script>
+      const quotes = [
+        "동해물과 백두산이 마르고 닳도록",
+        "남산 위에 저 소나무 철갑을 두른 듯",
+        "가을 하늘 공활한데 높고 구름 없이",
+        "밝은 달은 우리 가슴 일편단심일세",
+        "이 기상과 이 맘으로 충성을 다하여",
+        "괴로우나 즐거우나 나라 사랑하세",
+      ];
+
+      const quoteElement = document.getElementById("quote");
+      const inputElement = document.getElementById("input");
+      let currentQuoteIndex;
+
+      function startGame() {
+        // 10초 뒤에 실패하는 promise 객체
+        const promise = new Promise((resolve, reject) => {
+          window.resolve = resolve;
+          window.reject = reject;
+          setTimeout(() => {
+            reject("시간 초과!");
+          }, 10000);
+        });
+        promise
+          .then(function () {
+            alert("성공!");
+          })
+          .catch(function (error) {
+            alert(error);
+          });
+        
+        currentQuoteIndex = Math.floor(Math.random() * quotes.length);   // 랜덤 index
+        quoteElement.textContent = quotes[currentQuoteIndex];            // 랜덤 애국가 문장
+        inputElement.value = ""                                     // input 초기화
+      }
+
+      function checkInput() {
+
+        const currentQuote = quotes[currentQuoteIndex]              // 정답 문장
+
+        if (inputElement.value === currentQuote) {                  // 같으면 resolve 호출
+          window.resolve(`성공!`);
+          startGame();
+        } else {                                    // 다르면 reject 호출     
+          reject("실패!");
+          startGame();
+        }
+      }
+
+      startGame();
+    </script>
+  </body>
+</html>

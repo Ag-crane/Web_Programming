@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>시간 맞추기 게임</title>
+  <style>
+    body{
+      text-align: center;
+      margin-top: 100px;
+      font-size: 24px;
+    }
+    button{
+      width: 200px;
+      height: 100px;
+      font-size: 24px;
+      color:red
+    }
+  </style>
+  
+</head>
+<body>
+  <!-- 버튼을 누르고 3~5초 사이에 다시 누르면 성공
+      3초 이전에 누르거나 5초가 지나면 실패 -->
+  <h1>시간 맞추기 게임</h1>
+  <h5>버튼을 클릭하고, 3~5초 내에 다시 클릭하세요</h3>
+  <button id="btn" onclick="game()">클릭</button>
+  <h5>다시 하려면 새로고침 하세요</h5>
+
+  <script>
+    let startTime;
+    let elapsedTime;
+    window.clicked = false;
+    
+    function game(){
+
+      if (window.clicked === false) {
+
+        startTime = new Date().getTime();
+        window.clicked = true;
+        document.getElementById('btn').innerHTML = '다시 클릭';
+
+        const promise = new Promise(function(resolve, reject) {
+          window.resolve = resolve;
+          window.reject = reject;
+          setTimeout(function() {
+            reject('실패 : 시간 초과');
+            window.clicked = false;
+          }, 5000);
+        });
+        promise
+          .then(function(result) {
+            alert(result);
+            document.getElementById('btn').innerHTML = '클릭';
+          })
+          .catch(function(error) {
+            alert(error);
+            document.getElementById('btn').innerHTML = '클릭';
+          });
+
+      }else{
+        elapsedTime = new Date().getTime() - startTime;
+        if (elapsedTime >= 3000 && elapsedTime <= 5000) {
+          window.resolve('성공');
+          window.clicked = false;
+
+        }else {
+          window.reject('실패 : 너무 일찍 눌렀어요');
+          window.clicked = false;
+        }
+      }
+    }
+  </script>
+</body>
+</html>

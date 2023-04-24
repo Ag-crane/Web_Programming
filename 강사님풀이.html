@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>미세먼지 화면 만들기</title>
+  <script src="chart.js"></script>
+
+  <style>
+    td.table-rgn-border {
+      border-top: 3px solid black;
+    }
+
+    .low {
+      color: blue;
+      font-weight: bold;
+    }
+
+    .high {
+      color: red;
+      font-weight: bold;
+    }
+  </style>
+  <script>
+
+      // document.onload = function() {
+      //   const ct2 = document.getElementById("myChart");
+      //   alert('onload');
+      // }
+
+  </script>
+
+  <script>
+    function zeroTwoMinus(data) {
+      if( data == 0 )
+        return "-";
+      else
+        return data;
+    }
+
+    async function load() {
+      const con = confirm("데이터를 불러오시겠습니까?");
+      if (con === false) {
+        console.error("데이터를 안 불러옵니다");
+        return;
+      }
+      const res = await fetch("http://openapi.seoul.go.kr:8088/78636e4e496269673634556a795559/json/RealtimeCityAir/1/25");
+      const res2 = await res.json();
+
+      alert(res2.RealtimeCityAir.row[0].MSRSTE_NM + "에 오신것을 환영합니다");
+
+      // const sortedRow = res2.RealtimeCityAir.row;
+      const sortedRow = [];
+      for( var i = 0 ; i < 25 ; i ++ ){
+        sortedRow.push(res2.RealtimeCityAir.row[i]);
+      }
+
+      sortedRow.sort(function compare(l, r) {
+        // return값이 음수다 => l이 r보다 작다
+        // return값이 양수다 => l이 r보다 크다
+        // return값이 0이다  => l과 r이  같다
+        return l.IDEX_MVL - r.IDEX_MVL;
+      });
+
+      const lowGu = [], highGu = [];
+      // lowGu 는 IDEX_MVL이 작은 5개 구의 이름을 저장
+      for( var i = 0 ; i < 25 ; i ++ ){
+        if( lowGu.length < 5 && sortedRow[i].IDEX_MVL != 0) {
+          lowGu.push(sortedRow[i].MSRSTE_NM);
+        }
+      }
+      for( var i = 24 ; i >= 0 ; i -- ){
+        if( highGu.length < 5 && sortedRow[i].IDEX_MVL != 0) {
+          highGu.push(sortedRow[i].MSRSTE_NM);
+        }
+      }
+
+      
+      const labels = [];
+      const data = [];
+
+      const labels2 = [];
+      const data2 = [];
+      for (var i = 0; i < 25; i++) {
+        const r = res2.RealtimeCityAir.row[i];
+
+        labels.push(r.MSRSTE_NM);
+        data.push(r.PM25);
+
+        labels2.push(r.MSRSTE_NM);
+        data2.push(r.PM10);
+        // i-1 번째 MSRRGN_NM 값과 i번째 MSRRGN_NM 값이 다르면 isBorder true
+        const isBorder = (i != 0) && res2.RealtimeCityAir.row[i-1].MSRRGN_NM != r.MSRRGN_NM;
+        // const isBorder = (i == 0) || res2.RealtimeCityAir.row[i-1].MSRRGN_NM != res2.RealtimeCityAir.row[i].MSRRGN_NM;
+
+        let 미세먼지상태 = "";
+        if( r.IDEX_NM == "보통" ) 미세먼지상태 = "green";
+        else if( r.IDEX_NM.includes("나쁨") ) 미세먼지상태 = "red";
+        else if( r.IDEX_NM.includes("좋음") ) 미세먼지상태 = "blue";
+        else 미세먼지상태 = "black;"
+
+        let highLow = "";
+        if( lowGu.includes( res2.RealtimeCityAir.row[i].MSRSTE_NM ) ) highLow = "low";
+        else if( highGu.includes( res2.RealtimeCityAir.row[i].MSRSTE_NM) ) highLow = "high";
+
+        document.getElementById("data").innerHTML = document.getElementById("data").innerHTML +
+          `<tr>
+            <td class="${isBorder ? "table-rgn-border" : ""}">${res2.RealtimeCityAir.row[i].MSRSTE_NM}</td>
+            <td class="${isBorder ? "table-rgn-border" : ""}">${res2.RealtimeCityAir.row[i].MSRRGN_NM}</td>
+            <td class="${isBorder ? "table-rgn-border" : ""}">${zeroTwoMinus(res2.RealtimeCityAir.row[i].PM10)}</td>
+            <td class="${isBorder ? "table-rgn-border" : ""}">${zeroTwoMinus(res2.RealtimeCityAir.row[i].PM25)}</td>
+            <td class="${isBorder ? "table-rgn-border" : ""}">${zeroTwoMinus(res2.RealtimeCityAir.row[i].O3)}</td>
+            <td class="${isBorder ? "table-rgn-border" : ""}">${zeroTwoMinus(res2.RealtimeCityAir.row[i].SO2)}</td>
+            <td class="${isBorder ? "table-rgn-border" : ""} ${highLow}">
+              ${zeroTwoMinus(res2.RealtimeCityAir.row[i].IDEX_MVL)}
+            </td>
+            <td class="${isBorder ? "table-rgn-border" : ""}" style="color: ${미세먼지상태}" >
+              ${res2.RealtimeCityAir.row[i].IDEX_NM}
+            </td>
+          </tr>`
+      }
+
+      const ctx = document.getElementById('myChart');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'PM25',
+            data: data,
+            backgroundColor: '#ff0000',
+            borderRadius: 10,
+            borderWidth: 1,
+            borderSkipped: false,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Chart.js Bar Chart'
+            }
+          }
+        },
+      });
+
+      const ctx2 = document.getElementById('myChart2');
+      new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: labels2,
+          datasets: [{
+            label: 'PM10',
+            data: data2,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <button onclick="load()">데이터 불러오기</button>
+  <table>
+    <thead>
+      <th>지역명</th>
+      <th>PM10</th>
+      <th>PM25</th>
+      <th>O3</th>
+      <th>SO2</th>
+    </thead>
+    <tbody id="data">
+      <!-- 25개의 표를 만듦. -->
+    </tbody>
+  </table>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+  <div>
+    <canvas id="myChart2"></canvas>
+  </div>
+  <script>
+
+  </script>
+</body>
+
+</html>

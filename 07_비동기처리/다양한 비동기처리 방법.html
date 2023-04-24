@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function race() {
+        const p1 = new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            reject("늦어서 죄송합니다");
+          }, 50);
+        });
+
+        const p2 = new Promise(function (resolve, reject) {
+          fetch(
+            "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/"
+          ).then(function () {
+            resolve("호출 성공");
+          });
+        });
+
+        Promise.race([p1, p2])
+          .then(function (res) {
+            alert(res);
+          })
+          .catch(function (res) {
+            alert(res);
+          });
+      }
+
+      function race2() {
+        let timer = false;
+        setTimeout(function () {
+          timer = true;
+        }, 45);
+
+        fetch(
+          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/"
+        ).then(function () {
+          if (timer === false) {
+            alert("호출 성공");
+          } else {
+            alert("늦어서 죄송합니다");
+          }
+        });
+      }
+
+      async function race3() {
+        let timer = false;
+        setTimeout(function () {
+          timer = true;
+        }, 45);
+
+        await fetch(
+          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/"
+        );
+
+        if (timer === false) {
+          alert("호출 성공");
+        } else {
+          alert("늦어서 죄송합니다");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="race()">API호출</button>
+    <button onclick="race2()">API호출</button>
+    <button onclick="race3()">API호출</button>
+  </body>
+</html>

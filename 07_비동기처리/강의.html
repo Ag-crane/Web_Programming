@@ -24,34 +24,7 @@
         document.body.innerHTML += JSON.stringify(data);
       }
 
-      function fiveAPI() {
-        const 도심권 = fetch(
-          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/도심권"
-        );
-        const 동북권 = fetch(
-          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/동북권"
-        );
-        const 서북권 = fetch(
-          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/서북권"
-        );
-        const 서남권 = fetch(
-          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/서남권"
-        );
-        const 동남권 = fetch(
-          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/동남권"
-        );
-        // 5개의 비동기 작업이 요청만 되고 결과는 아직 얻어오지 않은, Promise 상태
-        // 5개의 결과를 다 기다리려면?
-        // 5개의 Promise 객체를 배열로 받아서, 모든 Promise가 resolve 될 때까지 기다렸다가, 모든 Promise가 resolve 되면, 그 때 resolve 되는 Promise를 반환
-        Promise.all([도심권, 동북권, 서북권, 서남권, 동남권]).then(function (
-          res
-        ) {
-          res[0].json().then(function (data) {
-            document.body.innerHTML += JSON.stringify(data);
-          });
-        });
-      }
-
+      // 도심권만 출력해보자~
       async function fiveAsyncAPI() {
         const 도심권 = await fetch(
           "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/도심권"
@@ -68,8 +41,40 @@
         const 동남권 = await fetch(
           "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/동남권"
         );
+        document.body.innerHTML += JSON.stringify(await 도심권.json());
       }
 
+      function fiveAPI() {
+        // 5개의 비동기 작업 : 요청만 되고 결과는 아직 얻어오지 않은, Promise 객체인 상태
+        const 도심권 = fetch(
+          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/도심권"
+        );
+        const 동북권 = fetch(
+          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/동북권"
+        );
+        const 서북권 = fetch(
+          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/서북권"
+        );
+        const 서남권 = fetch(
+          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/서남권"
+        );
+        const 동남권 = fetch(
+          "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/동남권"
+        );
+        // 5개의 fetch 결과를 다 기다리려면?
+        // 5개의 Promise 객체를 배열로 받아서, 모든 Promise가 resolve 될 때까지 기다렸다가, 모든 Promise가 resolve 되면, 그 때 resolve 되는 Promise를 반환
+        Promise.all([도심권, 동북권, 서북권, 서남권, 동남권]).then(function (
+          res
+        ) {
+          res[0].json().then(function (data) {
+            document.body.innerHTML += JSON.stringify(data);
+          });
+        });
+      }
+       // 개발자도구의 '네트워크'에서 처리 시간 확인. async await 쓰면 순서대로 요청하는데, Promise.all() 쓰면 동시에 요청
+
+
+      // 제일 빠른놈을 출력해보자~
       function fiveRaceAPI() {
         const 도심권 = fetch(
           "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/도심권"
@@ -94,7 +99,7 @@
           });
         });
       }
-      // 개발자도구의 '네트워크'에서 처리 시간 확인. async await 쓰면 순서대로 요청하는데, Promise.all() 쓰면 동시에 요청
+     
       
       window.clicked = false  // window가 붙으면 전역변수라고 생각하면 됨
 

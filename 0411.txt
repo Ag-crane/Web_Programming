@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>미세먼지 화면 만들기</title>
+  <script src="chart.js"></script>
+  <script>
+
+      // document.onload = function() {
+      //   const ct2 = document.getElementById("myChart");
+      //   alert('onload');
+      // }
+
+  </script>
+
+  <script>
+    async function load() {
+      const con = confirm("데이터를 불러오시겠습니까?");
+      if (con === false) {
+        console.error("데이터를 안 불러옵니다");
+        return;
+      }
+      const res = await fetch("http://openapi.seoul.go.kr:8088/{API코드}/json/RealtimeCityAir/1/25");
+      const res2 = await res.json();
+
+      alert(res2.RealtimeCityAir.row[0].MSRSTE_NM + "에 오신것을 환영합니다");
+      const labels = [];
+      const data = [];
+
+      const labels2 = [];
+      const data2 = [];
+      for (var i = 0; i < 25; i++) {
+        labels.push(res2.RealtimeCityAir.row[i].MSRSTE_NM);
+        data.push(res2.RealtimeCityAir.row[i].PM25);
+
+        labels2.push(res2.RealtimeCityAir.row[i].MSRSTE_NM);
+        data2.push(res2.RealtimeCityAir.row[i].PM10);
+        document.getElementById("data").innerHTML = document.getElementById("data").innerHTML +
+          `<tr>
+            <td>${res2.RealtimeCityAir.row[i].MSRSTE_NM}</td>
+            <td>${res2.RealtimeCityAir.row[i].PM10}</td>
+            <td>${res2.RealtimeCityAir.row[i].PM25}</td>
+            <td>${res2.RealtimeCityAir.row[i].O3}</td>
+            <td>${res2.RealtimeCityAir.row[i].SO2}</td>
+          </tr>`
+      }
+
+      const ctx = document.getElementById('myChart');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'PM25',
+            data: data,
+            backgroundColor: '#ff0000',
+            borderRadius: 10,
+            borderWidth: 1,
+            borderSkipped: false,
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: 'top',
+            },
+            title: {
+              display: true,
+              text: 'Chart.js Bar Chart'
+            }
+          }
+        },
+      });
+
+      const ctx2 = document.getElementById('myChart2');
+      new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: labels2,
+          datasets: [{
+            label: 'PM10',
+            data: data2,
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    }
+  </script>
+</head>
+
+<body>
+  <button onclick="load()">데이터 불러오기</button>
+  <table>
+    <thead>
+      <th>지역명</th>
+      <th>PM10</th>
+      <th>PM25</th>
+      <th>O3</th>
+      <th>SO2</th>
+    </thead>
+    <tbody id="data">
+      <!-- 25개의 표를 만듦. -->
+    </tbody>
+  </table>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+  <div>
+    <canvas id="myChart2"></canvas>
+  </div>
+  <script>
+
+  </script>
+</body>
+
+</html>

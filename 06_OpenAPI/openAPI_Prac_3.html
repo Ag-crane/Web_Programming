@@ -23,9 +23,11 @@
           labels2.push(res2.RealtimeCityAir.row[i].MSRSTE_NM);
           datas2.push(res2.RealtimeCityAir.row[i].PM25);
         }
+        console.log(labels)
+        console.log(datas)
       
         // myChart 캔버스에 차트 그리기
-        const ctx = document.getElementById("myChart");
+        const ctx = document.getElementById("myChart");       // ctx는 context의 줄임말. 호출, 응답 등의 의미라는데 잘 이해는 안됨
 
         new Chart(ctx, {
         type: "bar",

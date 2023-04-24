@@ -245,7 +245,7 @@ function loadChart() {
     },
   });
 
-  const ctx5 = document.getElementById("myChart2");
+  const ctx5 = document.getElementById("myChart5");
 
   new Chart(ctx5, {
     type: "radar",
@@ -281,4 +281,5 @@ function loadChart() {
       }
     },
   });
+
 }

@@ -14,7 +14,7 @@
             background-color: yellow;
         }
         #button1:active {
-            background-color: white;
+            background-color: red;
         }
         
         #button2:hover{
@@ -35,7 +35,6 @@
         }
         a:visited{
             color: red;
-            /* font-style: italic; --> 적용 왜 안되나??? */ 
         }
         a:link:active{
             background-color: blue;
@@ -44,7 +43,7 @@
         a:any-link:hover{    /*any를 안붙이면 방문한 링크는 보라색에서 안바뀜*/
             color:green; 
         }
-        ::selection{
+        ::selection{           /* 드래그로 선택된 텍스트 */
             background-color: yellow;
             color: black;
         }
@@ -72,14 +71,15 @@
     <button id="button3" disabled>비활성화</button>
     <br>
     <hr>
+    
     <!-- id와 for로 연결하는건 label(텍스트)를 눌러도 선택되게 하는거.
     for속성을 사용하지 않고 label 태그로 input태그를 감싸는 방법도 있다 -->
     <!-- 여기서 value는 의미없다. 서버로 넘어갈 값을 지정 -->
     <input type="radio" id="male" name="gender" value="male">
-    <label for="male" >Male</label>
+    <label for="female" >Male</label>
     <input type="radio" id="female" name="gender" value="female">
     <label for="female">Female</label>
-    <input type="radio" id="other" name="gender" value="other">       
+    <input type="radio" id="other" name="yea" value="other">       
     <label for="other1">Other</label>
     <br>
     <hr>

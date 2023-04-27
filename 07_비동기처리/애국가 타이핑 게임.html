@@ -50,8 +50,8 @@
           }, 10000);
         });
         promise
-          .then(function () {
-            alert("성공!");
+          .then(function (res) {
+            alert(res);
           })
           .catch(function (error) {
             alert(error);
@@ -76,6 +76,11 @@
       }
 
       startGame();
+    </script>
+    <script>
+      const res = fetch("http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/").then(function(res){
+        console.log(res.json())
+      })
     </script>
   </body>
 </html>

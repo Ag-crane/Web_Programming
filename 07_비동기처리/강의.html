@@ -16,6 +16,7 @@
         });
       }
 
+      // async await 키워드 사용하면 promise 객체가 아닌 호출 결과를 변수에 담을 수 있게 된다
       async function asyncawait() {
         const res = await fetch(
           "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/"
@@ -41,7 +42,7 @@
         const 동남권 = await fetch(
           "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/동남권"
         );
-        document.body.innerHTML += JSON.stringify(await 도심권.json());
+        document.body.innerHTML += JSON.stringify(await 도심권.json());  // 요렇게도 await 키워드 들어갈 수 있음
       }
 
       function fiveAPI() {
@@ -64,9 +65,9 @@
         // 5개의 fetch 결과를 다 기다리려면?
         // 5개의 Promise 객체를 배열로 받아서, 모든 Promise가 resolve 될 때까지 기다렸다가, 모든 Promise가 resolve 되면, 그 때 resolve 되는 Promise를 반환
         Promise.all([도심권, 동북권, 서북권, 서남권, 동남권]).then(function (
-          res
+          res           // 5개의 resolve를 배열에 담아 반환받은 resolve를 res에 담음
         ) {
-          res[0].json().then(function (data) {
+          res[0].json().then(function (data) {            // 배열이니까 그 중 첫번째만 골라서 변환
             document.body.innerHTML += JSON.stringify(data);
           });
         });
@@ -91,7 +92,7 @@
         const 동남권 = fetch(
           "http://openapi.seoul.go.kr:8088/7567416263656e613132357651526975/json/RealtimeCityAir/1/25/동남권"
         );
-        Promise.race([도심권, 동북권, 서북권, 서남권, 동남권]).then(function (
+        Promise.race([도심권, 동북권, 서북권, 서남권, 동남권]).then(function (   // 제일 빠른놈의 resolve만 res에 담음
           res
         ) {
           res.json().then(function (data) {

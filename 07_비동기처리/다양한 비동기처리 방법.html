@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script>
+      // Promise 객체 활용
       function race() {
         const p1 = new Promise(function (resolve, reject) {
           setTimeout(function () {
@@ -30,6 +31,7 @@
           });
       }
 
+      // callback함수만 활용
       function race2() {
         let timer = false;
         setTimeout(function () {
@@ -47,6 +49,7 @@
         });
       }
 
+      // async await 활용
       async function race3() {
         let timer = false;
         setTimeout(function () {

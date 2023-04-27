@@ -47,28 +47,26 @@
           window.reject = reject;
           setTimeout(function() {
             reject('실패 : 시간 초과');
-            window.clicked = false;
           }, 5000);
         });
         promise
           .then(function(result) {
             alert(result);
             document.getElementById('btn').innerHTML = '클릭';
+            window.clicked = false;
           })
           .catch(function(error) {
             alert(error);
             document.getElementById('btn').innerHTML = '클릭';
+            window.clicked = false;
           });
 
       }else{
         elapsedTime = new Date().getTime() - startTime;
         if (elapsedTime >= 3000 && elapsedTime <= 5000) {
-          window.resolve('성공');
-          window.clicked = false;
-
+          window.resolve('성공');     
         }else {
           window.reject('실패 : 너무 일찍 눌렀어요');
-          window.clicked = false;
         }
       }
     }

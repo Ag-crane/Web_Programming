@@ -8,34 +8,59 @@
     <script src="chart.js"></script>
     <script>
       async function load() {
-
         const res = await fetch(
           "http://openapi.seoul.go.kr:8088/7961696649656e6136375774696566/json/RealtimeCityAir/1/25"
         );
         const res2 = await res.json();
 
         const dataTable = res2.RealtimeCityAir.row;
-        console.log(dataTable)
+        dataTable[0].PM10='-'
         const labels = [];
         const data = [];
         const labels2 = [];
         const data2 = [];
+
         for (var i = 0; i < 25; i++) {
+          
+          if (dataTable[i].PM10 == "-") {
+            dataTable[i].PM10 = 0;
+          }
+          if (dataTable[i].PM25 == "-") {
+            dataTable[i].PM25 = 0;
+          }
+          if (dataTable[i].O3 == "-") {
+            dataTable[i].O3 = 0;
+          }
+          if (dataTable[i].SO2 == "-") {
+            dataTable[i].SO2 = 0;
+          }
+          if (dataTable[i].IDEX_NM == "-") {
+            dataTable[i].IDEX_NM = 0;
+          }
+          if (dataTable[i].IDEX_MVL == "-") {
+            dataTable[i].IDEX_MVL = 0;
+          }
+          
+          
           labels.push(dataTable[i].MSRSTE_NM);
           data.push(dataTable[i].PM25);
-
           labels2.push(dataTable[i].MSRSTE_NM);
           data2.push(dataTable[i].PM10);
-          document.getElementById("data").innerHTML =
-            document.getElementById("data").innerHTML +
+
+          
+          document.getElementById("data").innerHTML +=
             `<tr>
             <td>${dataTable[i].MSRSTE_NM}</td>
             <td>${dataTable[i].PM10}</td>
             <td>${dataTable[i].PM25}</td>
             <td>${dataTable[i].O3}</td>
             <td>${dataTable[i].SO2}</td>
-          </tr>`;
+            <td>${dataTable[i].IDEX_NM}</td>
+            <td>${dataTable[i].IDEX_MVL}</td>
+            </tr>`;
         }
+        
+        
 
         const ctx = document.getElementById("myChart");
         new Chart(ctx, {

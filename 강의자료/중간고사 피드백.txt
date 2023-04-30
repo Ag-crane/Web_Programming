@@ -7,6 +7,7 @@ Promise.all([서울,부산]).then(function(res){
 res 가 아니라 res[0],res[1] 로 들어가야 하고
 for문도 따로 작성해야함
 
+attribute에 '' 사용 가능하다
 
 이해 안된 틀린 선지
 - Promise.all 결과 중에 비동기 처리에 실패하는 경우, 실패된 결과를 제외한 나머지 결과를 반환한다.
